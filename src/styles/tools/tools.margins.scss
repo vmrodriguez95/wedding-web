@@ -1,0 +1,5 @@
+@function space($n) {
+  $grid-base: 8px;
+
+  @return $grid-base * $n;
+}

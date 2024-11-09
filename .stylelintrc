@@ -1,0 +1,108 @@
+{
+  "plugins": ["stylelint-order"],
+  "ignoreFiles": ["node_modules/**/*.css", "dist/**/*.css"],
+  "rules": {
+    "indentation": 2,
+    "function-calc-no-unspaced-operator": true,
+    "unit-no-unknown": true,
+    "string-quotes": "single",
+    "property-no-unknown": true,
+    "keyframe-declaration-no-important": true,
+    "declaration-block-no-duplicate-properties": true,
+    "block-no-empty": true,
+    "selector-pseudo-class-no-unknown": [true,
+        { "ignorePseudoClasses": ["export"] }
+    ],
+    "selector-pseudo-element-no-unknown": true,
+    "selector-pseudo-element-colon-notation": "double",
+    "selector-pseudo-element-case": "lower",
+    "selector-pseudo-class-case": "lower",
+    "selector-pseudo-class-parentheses-space-inside": "never",
+    "selector-combinator-space-before": "always",
+    "selector-combinator-space-after": "always",
+    "selector-attribute-quotes": "always",
+    "selector-descendant-combinator-no-non-space": true,
+    "selector-attribute-brackets-space-inside": "never",
+    "selector-attribute-operator-space-after": "never",
+    "selector-attribute-operator-space-before": "never",
+    "selector-type-case": "lower",
+    "string-no-newline": true,
+    "media-feature-name-no-unknown": true,
+    "at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["extend", "include", "each", "function", "return", "for", "mixin", "use", "error", "warn", "debug", "at-root", "forward"]
+    }],
+    "comment-no-empty": true,
+    "no-duplicate-at-import-rules": true,
+    "no-duplicate-selectors": true,
+    "no-empty-source": true,
+    "no-extra-semicolons": true,
+    "number-max-precision": 4,
+    "declaration-block-no-redundant-longhand-properties": [true, {
+      "ignoreShorthands": ["font"]
+    }],
+    "declaration-no-important": true,
+    "declaration-block-single-line-max-declarations": 1,
+    "max-nesting-depth": [8, {
+      "ignore": ["blockless-at-rules"]
+    }],
+    "no-unknown-animations": true,
+    "color-hex-case": "lower",
+    "font-family-name-quotes": "always-unless-keyword",
+    "font-weight-notation": "numeric",
+    "function-comma-space-after": "always",
+    "function-comma-space-before": "never",
+    "function-max-empty-lines": 0,
+    "function-name-case": "lower",
+    "function-parentheses-newline-inside": "never-multi-line",
+    "function-parentheses-space-inside": "never",
+    "function-url-quotes": "always",
+    "function-whitespace-after": "always",
+    "number-leading-zero": "always",
+    "number-no-trailing-zeros": true,
+    "length-zero-no-unit": true,
+    "unit-case": "lower",
+    "value-list-comma-space-after": "always-single-line",
+    "value-list-comma-space-before": "never",
+    "value-list-max-empty-lines": 0,
+    "declaration-bang-space-after": "never",
+    "declaration-bang-space-before": "always",
+    "declaration-colon-space-after": "always",
+    "declaration-colon-space-before": "never",
+    "declaration-block-trailing-semicolon": "always",
+    "block-closing-brace-newline-after": ["always", {
+      "ignoreAtRules": ["if", "else"]
+    }],
+    "block-opening-brace-newline-after": "always",
+    "block-opening-brace-space-before": "always",
+    "max-empty-lines": 1,
+    "no-eol-whitespace": true,
+    "no-missing-end-of-source-newline": true,
+    "no-empty-first-line": true,
+    "rule-empty-line-before": ["always-multi-line", {
+      "except": ["first-nested", "after-single-line-comment"]
+    }],
+    "comment-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": ["after-comment", "stylelint-commands"]
+    }],
+    "at-rule-empty-line-before":  ["always", {
+      "except": ["first-nested"],
+      "ignoreAtRules": ["extend", "include", "import", "each"]
+    }],
+    "order/order": [
+      {
+        "type": "at-rule",
+        "name": "extend"
+      },
+      {
+        "type": "at-rule",
+        "name": "include"
+      },
+      "dollar-variables",
+      "custom-properties",
+      "declarations",
+      "at-rules",
+      "rules"
+    ]
+  }
+}
