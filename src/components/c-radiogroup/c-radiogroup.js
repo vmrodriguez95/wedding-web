@@ -44,6 +44,7 @@ class CRadiogroup extends LitElement {
   }
 
   render() {
+    // TODO: Añadir la funcionalidad de que cuando una opción dependa de un valor de otro campo, consulte el valor y mire a ver si debe pintar el option o no.
     return html`
       <div class="c-radiogroup" tabindex="0">
         <p>${this.label}</p>
