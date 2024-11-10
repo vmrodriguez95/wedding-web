@@ -35,7 +35,8 @@
     "dotenv": "^16.4.5",
     "firebase": "^11.0.1",
     "lit": "^3.1.1",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "urlpattern-polyfill": "^10.0.0"
   },
   "scripts": {
     "start": "wds --config web-dev-server.config.mjs",

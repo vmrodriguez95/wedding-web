@@ -161,7 +161,7 @@
           "type": "radio",
           "options": [
             {
-              "label": "Me apunto sólo yo",
+              "label": "¡Yo voy!",
               "value": "alone",
               "nextStep": "mattress",
               "default": true
