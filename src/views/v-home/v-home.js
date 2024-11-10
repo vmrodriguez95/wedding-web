@@ -18,7 +18,7 @@ class VHome extends LitElement {
 
   actualStep = 'base'
 
-  _dependencies = []
+  dependencies = []
 
   _token = ''
 
@@ -33,14 +33,13 @@ class VHome extends LitElement {
    */
   static styles = css`${unsafeCSS(style)}`
 
-  connectedCallback() {
+  async connectedCallback() {
     super.connectedCallback()
 
     this.setToken(this._storageController.getValue('token'))
     this._dbController.startDBConnection()
-    this._dbController.getActualStep(this._storageController.getValue('token')).then(() => {
-      this._dbController.getFormByKey(this.actualStep)
-    })
+    await this._dbController.getActualStep(this._token)
+    await this._dbController.getFormByKey(this.actualStep)
   }
 
   /*
@@ -60,9 +59,9 @@ class VHome extends LitElement {
           ${when(this.form?.fields, () => html`
             <form class="${elementName}__form" @submit=${this.onSubmit}>
               ${repeat(
-                Object.values(this.form.fields),
-                (field) => field.id,
-                (field) => this.getFieldTemplate(field)
+                Object.entries(this.form.fields),
+                ([,field]) => field.id,
+                ([key, field]) => this.getFieldTemplate(key, field)
               )}
             </form> 
           `)}
@@ -72,7 +71,7 @@ class VHome extends LitElement {
   }
 
   updated() {
-    if (this._formEl && this._dependencies.length > 0) {
+    if (this._formEl && this.dependencies.length > 0) {
       this.activateDependencies()
     }
   }
@@ -104,21 +103,23 @@ class VHome extends LitElement {
   }
 
   async activateDependencies() {
-    this._dependencies.forEach(async(dependency) => {
-      const [mainFieldId, dependingId] = Object.entries(dependency)[0]
+    this.dependencies.forEach((dependency) => {
+      const [mainFieldId, dependingObjects] = Object.entries(dependency)[0]
       const mainFieldEl = this._formEl.querySelector(`#${mainFieldId}`)
-      const dependingFieldEl = this._formEl.querySelector(`#${dependingId}`)
 
-      if (mainFieldEl && dependingFieldEl) {
-        this.toggleShowItem(mainFieldEl, dependingFieldEl.value)
+      dependingObjects.forEach((item) => {
+        if (!item.isInDB) {
+          const dependingFieldEl = this._formEl.querySelector(`#${item.key}`)
 
-        dependingFieldEl.addEventListener('change', (ev) => {
-          this.toggleShowItem(mainFieldEl, ev.detail.value)
-        })
-      } else if (mainFieldEl && !dependingFieldEl) {
-        const dependingValue = await this._dbController.getValueFromKey(dependingId, this._token)
-        this.toggleShowItem(mainFieldEl, dependingValue)
-      }
+          if (mainFieldEl && dependingFieldEl) {
+            this.toggleShowItem(mainFieldEl, dependingFieldEl.value)
+
+            dependingFieldEl.addEventListener('change', (ev) => {
+              this.toggleShowItem(mainFieldEl, ev.detail.value)
+            })
+          }
+        }
+      })
     })
   }
 
@@ -179,13 +180,21 @@ class VHome extends LitElement {
     this._dbController.getFormByKey(step)
   }
 
-  getFieldTemplate(field) {
+  getDependencyByKey(key) {
+    return this.dependencies.find((dependency) => Object.keys(dependency)[0] === key)
+  }
+
+  getFieldTemplate(key, field) {
     let template = ''
     let printField = true
 
     if (field.depends) {
-      // TODO:  hacer que no se pinten los campos si el campo del que dependen en base de datos está a false
-      this._dependencies.push({ [field.id]: field.depends })
+      const dependency = this.getDependencyByKey(key)
+      dependency[key].forEach((item) => {
+        if (item.isInDB && item.dbValue !== true) {
+          printField = false
+        }
+      })
     }
 
     if (printField) {
@@ -279,7 +288,7 @@ class VHome extends LitElement {
 
     formData.actualStep = await this.getNextStep(nextButtonEl, this._token)
 
-    this._dependencies = []
+    this.dependencies = []
     await this._dbController.saveUserData(formData, this._token)
     await this._dbController.getFormByKey(formData.actualStep)
   }
