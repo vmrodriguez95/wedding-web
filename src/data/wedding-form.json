@@ -127,7 +127,7 @@
           "name": "companionName",
           "label": "¿Nos puedes decir el nombre de tu acompañante?",
           "type": "text",
-          "depends": "companionChoise",
+          "depends": ["companionChoise"],
           "order": 1
         },
         "buttonPrev": {
@@ -170,7 +170,7 @@
               "label": "Nos apuntamos los dos",
               "value": "both",
               "nextStep": "mattress",
-              "depends": "companionChoise"
+              "depends": ["companionChoise"]
             },
             {
               "label": "Nos vemos el sábado",
@@ -361,7 +361,7 @@
               "value": "wine"
             }
           ],
-          "depends": "companionChoise",
+          "depends": ["companionChoise"],
           "order": 2
         },
         "companionFavoriteDrinkMark": {
@@ -369,7 +369,7 @@
           "name": "companionFavoriteDrinkMark",
           "label": "Especifica la marca de tu bebida favorita, por favor.",
           "type": "text",
-          "depends": "companionChoise",
+          "depends": ["companionChoise"],
           "order": 3
         },
         "buttonPrev": {
@@ -447,7 +447,7 @@
           "name": "allergyDescription",
           "label": "Especifica la alergia, por favor.",
           "type": "text",
-          "depends": "allergy",
+          "depends": ["allergy"],
           "order": 2
         },
         "companionMenuOptions": {
@@ -473,7 +473,7 @@
               "value": "Otro"
             }
           ],
-          "depends": "companionChoise",
+          "depends": ["companionChoise"],
           "order": 3
         },
         "allergyCompanion": {
@@ -492,7 +492,7 @@
               "default": true
             }
           ],
-          "depends": "companionChoise",
+          "depends": ["companionChoise"],
           "order": 4
         },
         "allergyDescriptionCompanion": {
@@ -500,7 +500,7 @@
           "name": "allergyDescriptionCompanion",
           "label": "Especifica la alergia de tu acompañante, por favor.",
           "type": "text",
-          "depends": "allergyCompanion",
+          "depends": ["companionChoise", "allergyCompanion"],
           "order": 5
         },
         "buttonPrev": {
@@ -590,7 +590,7 @@
             }
           ],
           "order": 1,
-          "depends": "companionChoise"
+          "depends": ["companionChoise"]
         },
         "buttonPrev": {
           "id": "buttonPrev",
