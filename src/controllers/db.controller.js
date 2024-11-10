@@ -32,6 +32,7 @@ export class DBController {
 
         if (data.fields) {
           data.fields = this.orderFieldsByOrder(data.fields)
+          this.host.dependencies = await this.prepareDependencies(data.fields)
         }
 
         this.host.form = data
@@ -47,11 +48,7 @@ export class DBController {
     try {
       const snapshot = await get(child(this._dbRef, `users/${token}/actualStep`))
 
-      if (snapshot.exists()) {
-        this.host.actualStep = snapshot.val()
-      } else {
-        this.host.actualStep = 'base'
-      }
+      this.host.actualStep = snapshot.exists() ? snapshot.val() : 'base'
     }
     catch(error) {
       // eslint-disable-next-line no-console
@@ -101,6 +98,40 @@ export class DBController {
     )
 
     return objectOrdered
+  }
+
+  async prepareDependencies(fields, token) {
+    const fieldsWithDependencies = Object.entries(fields)
+      .filter(([,field]) => field.depends)
+      .map(([key, field]) => ({ [key]: field.depends }))
+
+    return await Promise.all(
+      fieldsWithDependencies.map(async(field) => {
+        const [fieldKey, dependKeys] = Object.entries(field)[0]
+
+        return {
+          [fieldKey]: await Promise.all(
+            dependKeys.map(async(dependKey) => {
+              if (!fields[dependKey]) {
+                const dbValue = await this.getValueFromKey(dependKey, token)
+
+                return {
+                  isInDB: true,
+                  key: dependKey,
+                  dbValue: dbValue
+                }
+              } else {
+                return {
+                  isInDB: false,
+                  key: dependKey,
+                  dbValue: null
+                }
+              }
+            })
+          )
+        }
+      })
+    )
   }
 }
 
