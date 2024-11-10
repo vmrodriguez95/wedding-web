@@ -30,7 +30,9 @@ export class DBController {
       if (snapshot.exists()) {
         const data = snapshot.val()
 
-        data.fields = this.orderFieldsByOrder(data.fields)
+        if (data.fields) {
+          data.fields = this.orderFieldsByOrder(data.fields)
+        }
 
         this.host.form = data
       }
@@ -41,7 +43,35 @@ export class DBController {
     }
   }
 
-  async saveUserData(token, newData) {
+  async getActualStep(token) {
+    try {
+      const snapshot = await get(child(this._dbRef, `users/${token}/actualStep`))
+
+      if (snapshot.exists()) {
+        this.host.actualStep = snapshot.val()
+      } else {
+        this.host.actualStep = 'base'
+      }
+    }
+    catch(error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
+  }
+
+  async getValueFromKey(key, token) {
+    try {
+      const snapshot = await get(child(this._dbRef, `users/${token}/${key}`))
+
+      return snapshot.exists() ? snapshot.val() : null
+    }
+    catch(error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
+  }
+
+  async saveUserData(newData, token) {
     try {
       let data = newData
       const snapshot = await get(child(this._dbRef, `users/${token}`))

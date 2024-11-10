@@ -18,7 +18,7 @@ class EInput extends LitElement {
 
   @property({ type: String }) value = ''
 
-  @property({ type: Boolean }) required = true
+  @property({ type: Boolean, reflect: true }) required = true
 
   @query('input') input
 
@@ -54,6 +54,14 @@ class EInput extends LitElement {
         />
       </div>
     `
+  }
+
+  /**
+   * Methods
+   */
+
+  setRequired(value) {
+    this.required = value
   }
 
   checkValidity() {

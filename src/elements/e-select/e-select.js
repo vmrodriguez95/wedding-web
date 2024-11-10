@@ -34,6 +34,11 @@ class ESelect extends LitElement {
     this._internals = this.attachInternals()
   }
 
+  connectedCallback() {
+    super.connectedCallback()
+    this.setDefaultValue()
+  }
+
   /**
    * Lifecycle methods
    */
@@ -47,6 +52,7 @@ class ESelect extends LitElement {
           name=${this.name}
           ?required=${this.required}
           value=${this.value}
+          @change=${this._onSelectChange}
         >
           ${this.options.map(option => html`
             <option value=${option.value}>${option.label}</option>
@@ -56,10 +62,6 @@ class ESelect extends LitElement {
     `
   }
 
-  checkValidity() {
-    return this.selectEl.checkValidity()
-  }
-
   updated() {
     const select = this.shadowRoot.querySelector('select')
 
@@ -67,6 +69,31 @@ class ESelect extends LitElement {
       select.validity,
       select.validationMessage,
       select
+    )
+  }
+
+  /**
+   * Methods
+   */
+  setRequired(value) {
+    this.required = value
+  }
+
+  setDefaultValue() {
+    const option = this.options.find(option => option.default) || this.options[0]
+    this.value = option.value
+  }
+
+  checkValidity() {
+    return this.selectEl.checkValidity()
+  }
+
+  _onSelectChange() {
+    this.value = this.selectEl.value
+    this._internals.setValidity(
+      this.selectEl.validity,
+      this.selectEl.validationMessage,
+      this.selectEl
     )
   }
 }
