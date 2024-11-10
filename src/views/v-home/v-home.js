@@ -286,8 +286,8 @@ class VHome extends LitElement {
     const nextButtonEl = e.target.querySelector('#buttonNext')
 
     if (!this._token) {
-      this.setToken(this.createToken(formData.email, formData.name))
-      this.setMainUserInfoInStorage(formData.email, formData.name)
+      this.setToken(this.createToken(formData.email, formData.fullname))
+      this.setMainUserInfoInStorage(formData.email, formData.fullname)
     }
 
     formData.actualStep = await this.getNextStep(nextButtonEl, this._token)
