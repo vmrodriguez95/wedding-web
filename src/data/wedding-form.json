@@ -1,0 +1,618 @@
+{
+  "form": {
+    "base": {
+      "sectionTitle": "¡¡Nos casamos!!",
+      "description": "Por favor, dinos tu nombre completo y tu correo. Después, necesitamos que respondas algunas preguntas para ayudarnos a preparar el evento del año. ¡Muchas gracias!",
+      "fields": {
+        "fullname": {
+          "id": "fullname",
+          "name": "fullname",
+          "label": "Tu nombre completo",
+          "type": "text",
+          "order": 0
+        },
+        "email": {
+          "id": "email",
+          "name": "email",
+          "label": "Tu email",
+          "type": "email",
+          "order": 1
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStep": "home",
+          "order": 2
+        }
+      }
+    },
+    "home": {
+      "fields": {
+        "relationship": {
+          "id": "relationship",
+          "name": "relationship",
+          "label": "¿Eres familia o amigo?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Familia",
+              "value": "family",
+              "default": true
+            },
+            {
+              "label": "Amigo",
+              "value": "friend"
+            }
+          ],
+          "order": 0
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStep": "attend",
+          "order": 1
+        }
+      }
+    },
+    "attend": {
+      "sectionTitle": "¿Podrás compartir con nosotros este día?",
+      "fields": {
+        "attendAnswer": {
+          "id": "attendAnswer",
+          "name": "attendAnswer",
+          "label": "¿Podrás compartir con nosotros este día?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Sí",
+              "value": true,
+              "nextStep": "companion",
+              "default": true
+            },
+            {
+              "label": "No",
+              "value": false,
+              "nextStep": "missyou"
+            }
+          ],
+          "order": 0
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStep": "home",
+          "order": 1
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStepFromValue": ["attendAnswer"],
+          "order": 2
+        }
+      }
+    },
+    "missyou": {
+      "sectionTitle": "Es una lástima, ¡Te echaremos de menos!"
+    },
+    "companion": {
+      "fields": {
+        "companionChoise": {
+          "id": "companionChoise",
+          "name": "companionChoise",
+          "label": "¿Vendrás con acompañante?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Sí",
+              "value": true,
+              "default": true
+            },
+            {
+              "label": "No",
+              "value": false
+            }
+          ],
+          "order": 0
+        },
+        "companionName": {
+          "id": "companionName",
+          "name": "companionName",
+          "label": "¿Nos puedes decir el nombre de tu acompañante?",
+          "type": "text",
+          "depends": "companionChoise",
+          "order": 1
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStep": "attend",
+          "order": 2
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStepFromValue": ["relationship"],
+          "options": {
+            "family": "drink",
+            "friend": "countryHouse"
+          },
+          "order": 3
+        }
+      }
+    },
+    "countryHouse": {
+      "fields": {
+        "willComeToCountryHouse": {
+          "id": "willComeToCountryHouse",
+          "name": "willComeToCountryHouse",
+          "label": "¿Vendrás a la casa rural?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Me apunto sólo yo",
+              "value": "alone",
+              "nextStep": "mattress",
+              "default": true
+            },
+            {
+              "label": "Nos apuntamos los dos",
+              "value": "both",
+              "nextStep": "mattress",
+              "depends": "companionChoise"
+            },
+            {
+              "label": "Nos vemos el sábado",
+              "value": "none",
+              "nextStep": "drink"
+            }
+          ],
+          "order": 0
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStep": "companion",
+          "order": 1
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStepFromValue": ["willComeToCountryHouse"],
+          "order": 2
+        }
+      }
+    },
+    "mattress": {
+      "fields": {
+        "hasMattress": {
+          "id": "hasMattress",
+          "name": "hasMattress",
+          "label": "¿Tienes colchones hinchables que puedas traer?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Sí",
+              "value": true
+            },
+            {
+              "label": "No",
+              "value": false,
+              "default": true
+            }
+          ],
+          "order": 0
+        },
+        "mattressQuantity": {
+          "id": "mattressQuantity",
+          "name": "mattressQuantity",
+          "label": "¿Cuantos colchones hinchables podrías traer?",
+          "type": "select",
+          "options": [
+            {
+              "label": "0",
+              "value": 0,
+              "default": true
+            },
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            }
+          ],
+          "order": 1
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "type": "button",
+          "nextStep": "countryHouse",
+          "label": "Ir atrás",
+          "order": 2
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "type": "submit",
+          "nextStep": "transport",
+          "label": "Continuar",
+          "order": 3
+        }
+      }
+    },
+    "transport": {
+      "fields": {
+        "transportChoise": {
+          "id": "transportChoise",
+          "name": "transportChoise",
+          "label": "A la finca, ¿vas con el transporte que os facilitamos o con tu propio coche?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Con el transporte",
+              "value": true,
+              "default": true
+            },
+            {
+              "label": "Por mis propios medios",
+              "value": false
+            }
+          ],
+          "order": 0
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStep": "mattress",
+          "order": 1
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStep": "drink",
+          "order": 2
+        }
+      }
+    },
+    "drink": {
+      "sectionTitle": "¿Qué vas a beber?",
+      "description": "No te preocupes, podrás beber lo que quieras. Aquí nos interesa saber lo que más te gusta.",
+      "fields": {
+        "favoriteDrinkType": {
+          "id": "favoriteDrinkType",
+          "name": "favoriteDrinkType",
+          "label": "Elige tu tipo de bebida preferida:",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Refresco",
+              "value": "soda",
+              "default": true
+            },
+            {
+              "label": "Cerveza",
+              "value": "beer"
+            },
+            {
+              "label": "Vino",
+              "value": "wine"
+            }
+          ],
+          "order": 0
+        },
+        "favoriteDrinkMark": {
+          "id": "favoriteDrinkMark",
+          "name": "favoriteDrinkMark",
+          "label": "Especifica la marca de tu bebida favorita, por favor.",
+          "type": "text",
+          "order": 1
+        },
+        "companionFavoriteDrinkType": {
+          "id": "companionFavoriteDrinkType",
+          "name": "companionFavoriteDrinkType",
+          "label": "Ahora elige el tipo de bebida preferida de tu acompañante:",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Refresco",
+              "value": "soda",
+              "default": true
+            },
+            {
+              "label": "Cerveza",
+              "value": "beer"
+            },
+            {
+              "label": "Vino",
+              "value": "wine"
+            }
+          ],
+          "depends": "companionChoise",
+          "order": 2
+        },
+        "companionFavoriteDrinkMark": {
+          "id": "companionFavoriteDrinkMark",
+          "name": "companionFavoriteDrinkMark",
+          "label": "Especifica la marca de tu bebida favorita, por favor.",
+          "type": "text",
+          "depends": "companionChoise",
+          "order": 3
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStepFromValue": ["relationship", "willComeToCountryHouse"],
+          "options": {
+            "friend-alone": "transport",
+            "friend-both": "transport",
+            "friend-none": "countryHouse",
+            "family": "companion"
+          },
+          "order": 4
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStep": "menu",
+          "order": 5
+        }
+      }
+    },
+    "menu": {
+      "sectionTitle": "¿Qué menú prefieres?",
+      "fields": {
+        "menuOptions": {
+          "id": "menuOptions",
+          "name": "menuOptions",
+          "label": "Elige la opción que más se adapte a tus gustos",
+          "type": "select",
+          "options": [
+            {
+              "label": "Omnívoro",
+              "value": "omnivore"
+            },
+            {
+              "label": "Vegetariano",
+              "value": "vegetarian"
+            },
+            {
+              "label": "Vegano",
+              "value": "Vegan"
+            },
+            {
+              "label": "Otro",
+              "value": "other"
+            }
+          ],
+          "order": 0
+        },
+        "allergy": {
+          "id": "allergy",
+          "name": "allergy",
+          "label": "¿Tienes alguna alergia?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Sí",
+              "value": true
+            },
+            {
+              "label": "No",
+              "value": false,
+              "default": true
+            }
+          ],
+          "order": 1
+        },
+        "allergyDescription": {
+          "id": "allergyDescription",
+          "name": "allergyDescription",
+          "label": "Especifica la alergia, por favor.",
+          "type": "text",
+          "depends": "allergy",
+          "order": 2
+        },
+        "companionMenuOptions": {
+          "id": "companionMenuOptions",
+          "name": "companionMenuOptions",
+          "label": "¿A tu acompañante que opción le interesa más?",
+          "type": "select",
+          "options": [
+            {
+              "label": "Omnívoro",
+              "value": "Omnívoro"
+            },
+            {
+              "label": "Vegetariano",
+              "value": "Vegetariano"
+            },
+            {
+              "label": "Vegano",
+              "value": "Vegano"
+            },
+            {
+              "label": "Otro",
+              "value": "Otro"
+            }
+          ],
+          "depends": "companionChoise",
+          "order": 3
+        },
+        "allergyCompanion": {
+          "id": "allergyCompanion",
+          "name": "allergyCompanion",
+          "label": "¿Tu acompañante tiene alguna alergia?",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Sí",
+              "value": true
+            },
+            {
+              "label": "No",
+              "value": false,
+              "default": true
+            }
+          ],
+          "depends": "companionChoise",
+          "order": 4
+        },
+        "allergyDescriptionCompanion": {
+          "id": "allergyDescriptionCompanion",
+          "name": "allergyDescriptionCompanion",
+          "label": "Especifica la alergia de tu acompañante, por favor.",
+          "type": "text",
+          "depends": "allergyCompanion",
+          "order": 5
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStep": "drink",
+          "order": 6
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStep": "clothes",
+          "order": 7
+        }
+      }
+    },
+    "clothes": {
+      "fields": {
+        "size": {
+          "id": "size",
+          "name": "size",
+          "label": "¿Que talla usas de ropa?",
+          "type": "select",
+          "options": [
+            {
+              "label": "XS",
+              "value": "XS"
+            },
+            {
+              "label": "S",
+              "value": "S"
+            },
+            {
+              "label": "M",
+              "value": "M",
+              "default": true
+            },
+            {
+              "label": "L",
+              "value": "L"
+            },
+            {
+              "label": "XL",
+              "value": "XL"
+            },
+            {
+              "label": "XXL",
+              "value": "XXL"
+            }
+          ],
+          "order": 0
+        },
+        "sizeCompanion": {
+          "id": "sizeCompanion",
+          "name": "sizeCompanion",
+          "label": "Y tu acompañante, ¿Que talla usa?",
+          "type": "select",
+          "options": [
+            {
+              "label": "XS",
+              "value": "XS"
+            },
+            {
+              "label": "S",
+              "value": "S"
+            },
+            {
+              "label": "M",
+              "value": "M",
+              "default": true
+            },
+            {
+              "label": "L",
+              "value": "L"
+            },
+            {
+              "label": "XL",
+              "value": "XL"
+            },
+            {
+              "label": "XXL",
+              "value": "XXL"
+            }
+          ],
+          "order": 1,
+          "depends": "companionChoise"
+        },
+        "buttonPrev": {
+          "id": "buttonPrev",
+          "name": "buttonPrev",
+          "label": "Ir atrás",
+          "type": "button",
+          "nextStep": "menu",
+          "order": 2
+        },
+        "buttonNext": {
+          "id": "buttonNext",
+          "name": "buttonNext",
+          "label": "Continuar",
+          "type": "submit",
+          "nextStep": "end",
+          "order": 3
+        }
+      }
+    },
+    "end": {
+      "sectionTitle": "¡Genial! Nos vemos ese día.",
+      "description": "Próximamente actualizaremos la página con toda la información sobre la boda."
+    }
+  }
+}
