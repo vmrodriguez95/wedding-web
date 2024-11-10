@@ -12,11 +12,13 @@ class CRadiogroup extends LitElement {
 
   @property({ type: String }) label = ''
 
+  @property({ type: String }) nextStep = ''
+
+  @property({ type: String }) value = ''
+
   @property({ type: Array }) options = []
 
   @property({ type: Boolean }) required = true
-
-  @property({ type: String }) value = ''
 
   _internals
 
@@ -36,6 +38,11 @@ class CRadiogroup extends LitElement {
   /**
    * Lifecycle methods
    */
+  connectedCallback() {
+    super.connectedCallback()
+    this.setDefaultValues()
+  }
+
   render() {
     return html`
       <div class="c-radiogroup" tabindex="0">
@@ -48,8 +55,9 @@ class CRadiogroup extends LitElement {
             name=${this.name}
             type="radio"
             value=${option.value}
+            ?checked=${option.default}
             ?required=${this.required}
-            @change=${this._onRadioChange}
+            @change=${this._onRadioChange.bind(this, option)}
           />
         `)}
       </div>
@@ -62,13 +70,32 @@ class CRadiogroup extends LitElement {
     if (inputChecked) {
       this._internals.setValidity({})
     } else {
-      this._internals.setValidity({ valueMissing: true }, 'Selecciona una opción', this.shadowRoot.firstElementChild)
+      this._internals.setValidity(
+        { valueMissing: true },
+        'Selecciona una opción',
+        this.shadowRoot.firstElementChild
+      )
     }
   }
 
-  _onRadioChange(event) {
+  /**
+   * Methods
+   */
+  setRequired(value) {
+    this.required = value
+  }
+
+  setDefaultValues() {
+    const option = this.options.find(option => option.default) || this.options[0]
+    this.value = option.value
+    this.nextStep = option.nextStep
+  }
+
+  _onRadioChange(option) {
     this._internals.setValidity({})
-    this.value = event.target.value
+    this.value = option.value
+    this.nextStep = option.nextStep
+    this.dispatchEvent(new CustomEvent('change', { detail: option }))
   }
 
   checkValidity() {
