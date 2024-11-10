@@ -38,7 +38,11 @@ class VHome extends LitElement {
 
     this.setToken(this._storageController.getValue('token'))
     this._dbController.startDBConnection()
-    await this._dbController.getActualStep(this._token)
+
+    if (this._token) {
+      await this._dbController.getActualStep(this._token)
+    }
+
     await this._dbController.getFormByKey(this.actualStep)
   }
 
