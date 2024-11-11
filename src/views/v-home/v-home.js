@@ -22,6 +22,8 @@ class VHome extends LitElement {
 
   _token = ''
 
+  _companionChoise = null
+
   _goBackEl = null
 
   _dbController = new DBController(this)
@@ -37,6 +39,9 @@ class VHome extends LitElement {
     super.connectedCallback()
 
     this.setToken(this._storageController.getValue('token'))
+    this.setCompanionChoise(this._storageController.getValue('companionChoise'))
+
+
     this._dbController.startDBConnection()
 
     if (this._token) {
@@ -89,6 +94,10 @@ class VHome extends LitElement {
 
   setActualStep(step) {
     this.actualStep = step
+  }
+
+  setCompanionChoise(choise) {
+    this._companionChoise = choise
   }
 
   setMainUserInfoInStorage(email, fullname) {
@@ -288,6 +297,10 @@ class VHome extends LitElement {
     if (!this._token) {
       this.setToken(this.createToken(formData.email, formData.fullname))
       this.setMainUserInfoInStorage(formData.email, formData.fullname)
+    }
+
+    if (formData.companionChoise) {
+      this._storageController.setValue('companionChoise', formData.companionChoise)
     }
 
     formData.actualStep = await this.getNextStep(nextButtonEl, this._token)
