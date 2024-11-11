@@ -165,7 +165,7 @@ class VHome extends LitElement {
       })
     )
 
-    valueForOptions = valueForOptions.join('')
+    valueForOptions = valueForOptions.join('-')
 
     if (valueForOptions) {
       nextStep = options[valueForOptions]
@@ -188,9 +188,16 @@ class VHome extends LitElement {
     return newNextStep
   }
 
-  goBack(step) {
-    this.setActualStep(step)
-    this._dbController.getFormByKey(step)
+  async goBack(field) {
+    let nextStep = field.nextStep
+
+    if (field.nextStepFromValue) {
+      const nextStepFromValue = field.nextStepFromValue
+      nextStep = await this.getActualStepFromValue(nextStepFromValue, field.options)
+    }
+
+    this.setActualStep(nextStep)
+    this._dbController.getFormByKey(nextStep)
   }
 
   getDependencyByKey(key) {
@@ -254,7 +261,7 @@ class VHome extends LitElement {
               nextStep=${field.nextStep}
               .nextStepFromValue=${field.nextStepFromValue}
               .options=${field.options}
-              @click=${this.goBack.bind(this, field.nextStep)}
+              @click=${this.goBack.bind(this, field)}
             >
               <span>${field.label}</span>
             </e-button>
