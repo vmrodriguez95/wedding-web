@@ -1,5 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { when } from 'lit/directives/when.js'
+import { StorageController } from '../../controllers/storage.controller.js'
 
 import style from './c-radiogroup.style.scss?inline'
 
@@ -22,6 +24,8 @@ class CRadiogroup extends LitElement {
 
   _internals
 
+  _storageController = ''
+
   static formAssociated = true
 
   /**
@@ -29,37 +33,37 @@ class CRadiogroup extends LitElement {
    */
   static styles = css`${unsafeCSS(style)}`
 
-  constructor() {
-    super()
-    this._internals = this.attachInternals()
-    this._internals.setValidity({ valueMissing: true }, 'Selecciona una opción')
-  }
-
   /**
    * Lifecycle methods
    */
   connectedCallback() {
     super.connectedCallback()
+
+    this._internals = this.attachInternals()
+    this._internals.setValidity({ valueMissing: true }, 'Selecciona una opción')
+    this._storageController = new StorageController(this)
+
     this.setDefaultValues()
   }
 
   render() {
-    // TODO: Añadir la funcionalidad de que cuando una opción dependa de un valor de otro campo, consulte el valor y mire a ver si debe pintar el option o no.
     return html`
       <div class="c-radiogroup" tabindex="0">
         <p>${this.label}</p>
         ${this.options.map((option, idx) => html`
-          <label class="e-radio__label" for="${this.id}-${idx}">${option.label}</label>
-          <input
-            class="e-radio__input"
-            id="${this.id}-${idx}"
-            name=${this.name}
-            type="radio"
-            value=${option.value}
-            ?checked=${option.default}
-            ?required=${this.required}
-            @change=${this._onRadioChange.bind(this, option)}
-          />
+          ${when(!option.depends || (this._storageController.getValue(option.depends)), () => html`
+            <label class="e-radio__label" for="${this.id}-${idx}">${option.label}</label>
+            <input
+              class="e-radio__input"
+              id="${this.id}-${idx}"
+              name=${this.name}
+              type="radio"
+              value=${option.value}
+              ?checked=${option.default}
+              ?required=${this.required}
+              @change=${this._onRadioChange.bind(this, option)}
+            />
+          `)}
         `)}
       </div>
     `

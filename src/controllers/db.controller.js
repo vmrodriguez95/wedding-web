@@ -113,7 +113,7 @@ export class DBController {
           [fieldKey]: await Promise.all(
             dependKeys.map(async(dependKey) => {
               if (!fields[dependKey]) {
-                const dbValue = await this.getValueFromKey(dependKey, token)
+                const dbValue = this.host._storageController.getValue(dependKey) || await this.getValueFromKey(dependKey, token)
 
                 return {
                   isInDB: true,
