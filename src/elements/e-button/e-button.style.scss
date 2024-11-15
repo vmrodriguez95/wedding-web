@@ -1,5 +1,36 @@
-@use '../../styles/tools/tools.margins.scss';
+@use '../../styles/tools/tools.margins.scss' as *;
+@use '../../styles/tools/tools.typography.scss' as *;
+
+:host {
+  --bg-color: var(--color-green);
+  --border-color: var(--color-green);
+}
+
+:host([outlined]) {
+  --bg-color: var(--color-white);
+}
 
 .e-button {
-  display: block;
+  @include text--medium;
+  color: var(--color-gray--dark);
+  display: inline-block;
+  padding: space(1) space(2);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background-color: var(--bg-color);
+  box-sizing: border-box;
+  outline: 2px solid transparent;
+  transition: transform 0.2s, outline-color 0.2s;
+
+  &:focus {
+    outline-color: var(--color-purple--medium);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  &:active {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    transform: scale(0.90);
+  }
 }

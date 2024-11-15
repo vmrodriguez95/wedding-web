@@ -18,6 +18,8 @@ class EButton extends LitElement {
 
   @property({ type: Object }) options = {}
 
+  @property({ type: Boolean }) outlined
+
   static formAssociated = true
 
   _internals
