@@ -58,6 +58,7 @@ class ESelect extends LitElement {
             <option value=${option.value}>${option.label}</option>
           `)}
         </select>
+        <e-icon class="e-select__icon" icon="arrow-down" size="sm"></e-icon>
       </div>
     `
   }

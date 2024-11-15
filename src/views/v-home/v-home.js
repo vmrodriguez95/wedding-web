@@ -68,10 +68,17 @@ class VHome extends LitElement {
           ${when(this.form?.fields, () => html`
             <form class="${elementName}__form" @submit=${this.onSubmit}>
               ${repeat(
-                Object.entries(this.form.fields),
+                this.getFields(),
                 ([,field]) => field.id,
                 ([key, field]) => this.getFieldTemplate(key, field)
               )}
+              <div class="${elementName}__actions">
+                ${repeat(
+                  this.getButtons(),
+                  ([,field]) => field.id,
+                  ([key, field]) => this.getFieldTemplate(key, field)
+                )}
+              </div>
             </form> 
           `)}
         </section>
@@ -98,6 +105,14 @@ class VHome extends LitElement {
 
   setCompanionChoise(choise) {
     this._companionChoise = choise
+  }
+
+  getFields() {
+    return Object.entries(this.form.fields).filter(([,field]) => field.type !== 'button' && field.type !== 'submit')
+  }
+
+  getButtons() {
+    return Object.entries(this.form.fields).filter(([,field]) => field.type === 'button' || field.type === 'submit')
   }
 
   setMainUserInfoInStorage(email, fullname) {
@@ -261,6 +276,7 @@ class VHome extends LitElement {
               nextStep=${field.nextStep}
               .nextStepFromValue=${field.nextStepFromValue}
               .options=${field.options}
+              ?outlined=${field.outlined}
               @click=${this.goBack.bind(this, field)}
             >
               <span>${field.label}</span>
@@ -306,7 +322,7 @@ class VHome extends LitElement {
       this.setMainUserInfoInStorage(formData.email, formData.fullname)
     }
 
-    if (formData.companionChoise) {
+    if ('companionChoise' in formData) {
       this._storageController.setValue('companionChoise', formData.companionChoise)
     }
 

@@ -40,7 +40,6 @@ class CRadiogroup extends LitElement {
     super.connectedCallback()
 
     this._internals = this.attachInternals()
-    this._internals.setValidity({ valueMissing: true }, 'Selecciona una opción')
     this._storageController = new StorageController(this)
 
     this.setDefaultValues()
@@ -48,39 +47,26 @@ class CRadiogroup extends LitElement {
 
   render() {
     return html`
-      <div class="c-radiogroup" tabindex="0">
-        <p>${this.label}</p>
-        ${this.options.map((option, idx) => html`
-          ${when(!option.depends || (this._storageController.getValue(option.depends)), () => html`
-            <label class="e-radio__label" for="${this.id}-${idx}">${option.label}</label>
-            <input
-              class="e-radio__input"
-              id="${this.id}-${idx}"
-              name=${this.name}
-              type="radio"
-              value=${option.value}
-              ?checked=${option.default}
-              ?required=${this.required}
-              @change=${this._onRadioChange.bind(this, option)}
-            />
+      <div class="c-radiogroup">
+        <p class="c-radiogroup__label">${this.label}</p>
+        <div class="c-radiogroup__items">
+          ${this.options.map((option, idx) => html`
+            ${when(!option.depends || (this._storageController.getValue(option.depends)), () => html`
+              <input
+                id="${this.id}-${idx}"
+                name=${this.name}
+                type="radio"
+                value=${option.value}
+                ?checked=${option.default}
+                ?required=${this.required}
+                @change=${this._onRadioChange.bind(this, option)}
+              />
+              <label class="c-radiogroup__input" for="${this.id}-${idx}">${option.label}</label>
+            `)}
           `)}
-        `)}
+        </div>
       </div>
     `
-  }
-
-  updated() {
-    const inputChecked = this.shadowRoot.querySelector('input:checked')
-
-    if (inputChecked) {
-      this._internals.setValidity({})
-    } else {
-      this._internals.setValidity(
-        { valueMissing: true },
-        'Selecciona una opción',
-        this.shadowRoot.firstElementChild
-      )
-    }
   }
 
   /**
@@ -97,13 +83,8 @@ class CRadiogroup extends LitElement {
   }
 
   _onRadioChange(option) {
-    this._internals.setValidity({})
     this.value = option.value
     this.nextStep = option.nextStep
     this.dispatchEvent(new CustomEvent('change', { detail: option }))
-  }
-
-  checkValidity() {
-    return this._internals.checkValidity()
   }
 }

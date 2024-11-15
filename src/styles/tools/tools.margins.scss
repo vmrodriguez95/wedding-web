@@ -1,3 +1,11 @@
+@use 'sass:math';
+
+@function rem($px) {
+  $font-base: 16px;
+
+  @return math.div($px, $font-base) * 1rem;
+}
+
 @function space($n) {
   $grid-base: 8px;
 

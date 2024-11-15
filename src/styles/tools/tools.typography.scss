@@ -1,29 +1,37 @@
-@mixin heading--h1($font-weight: 700) {
-  font-weight: $font-weight;
-  font-size: 71px;
-  line-height: 82px;
+@use './tools.margins.scss' as *;
+
+@mixin heading--h1() {
+  font-weight: 400;
+  font-size: rem(48px);
+  line-height: rem(56px);
 }
 
-@mixin heading--h3($font-weight: 400) {
-  font-weight: $font-weight;
-  font-size: 30px;
-  line-height: 35px;
+@mixin heading--h3() {
+  font-weight: 400;
+  font-size: rem(30px);
+  line-height: rem(35px);
 }
 
-@mixin text--large($font-weight: 400) {
-  font-weight: $font-weight;
-  font-size: 20px;
-  line-height: 24px;
+@mixin text--large() {
+  font-weight: 400;
+  font-size: rem(20px);
+  line-height: rem(24px);
 }
 
-@mixin text--medium($font-weight: 400) {
-  font-weight: $font-weight;
-  font-size: 18px;
-  line-height: 20px;
+@mixin text--medium() {
+  font-weight: 400;
+  font-size: rem(18px);
+  line-height: rem(21px);
 }
 
-@mixin text($font-weight: 400) {
-  font-weight: $font-weight;
-  font-size: 16px;
-  line-height: 18px;
+@mixin text() {
+  font-weight: 400;
+  font-size: rem(16px);
+  line-height: rem(16px);
+}
+
+@mixin small() {
+  font-weight: 400;
+  font-size: rem(14px);
+  line-height: rem(16px);
 }
