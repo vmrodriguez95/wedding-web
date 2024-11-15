@@ -2,6 +2,9 @@
 @use '../../styles/tools/tools.typography.scss' as *;
 
 .e-input {
+  padding: 0 2px;
+  box-sizing: border-box;
+
   &__label {
     @include text;
     display: block;
