@@ -96,5 +96,6 @@ class ESelect extends LitElement {
       this.selectEl.validationMessage,
       this.selectEl
     )
+    this.dispatchEvent(new CustomEvent('change', { detail: { value: this.value } }))
   }
 }
