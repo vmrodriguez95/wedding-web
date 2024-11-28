@@ -121,7 +121,7 @@ class VHome extends LitElement {
   }
 
   toggleShowItem(mainFieldEl, dependingValue) {
-    if (dependingValue) {
+    if (dependingValue == 'true' || dependingValue == true) {
       mainFieldEl.classList.remove('hide')
       mainFieldEl.setRequired(true)
     } else {
@@ -225,6 +225,7 @@ class VHome extends LitElement {
 
     if (field.depends) {
       const dependency = this.getDependencyByKey(key)
+
       dependency[key].forEach((item) => {
         if (item.isInDB && item.dbValue !== true) {
           printField = false

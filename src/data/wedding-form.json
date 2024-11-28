@@ -419,22 +419,30 @@
           "options": [
             {
               "label": "Omnívoro",
-              "value": "omnivore"
+              "value": "Omnívoro"
             },
             {
               "label": "Vegetariano",
-              "value": "vegetarian"
+              "value": "Vegetariano"
             },
             {
               "label": "Vegano",
-              "value": "Vegan"
+              "value": "Vegano"
             },
             {
               "label": "Otro",
-              "value": "other"
+              "value": true
             }
           ],
           "order": 0
+        },
+        "menuOptionsOther": {
+          "id": "menuOptionsOther",
+          "name": "menuOptionsOther",
+          "label": "Especifica la opción del menú que prefieres, por favor.",
+          "type": "text",
+          "depends": ["menuOptions"],
+          "order": 1
         },
         "allergy": {
           "id": "allergy",
@@ -452,7 +460,7 @@
               "default": true
             }
           ],
-          "order": 1
+          "order": 2
         },
         "allergyDescription": {
           "id": "allergyDescription",
@@ -460,7 +468,7 @@
           "label": "Especifica la alergia, por favor.",
           "type": "text",
           "depends": ["allergy"],
-          "order": 2
+          "order": 3
         },
         "companionMenuOptions": {
           "id": "companionMenuOptions",
@@ -482,11 +490,19 @@
             },
             {
               "label": "Otro",
-              "value": "Otro"
+              "value": true
             }
           ],
           "depends": ["companionChoise"],
-          "order": 3
+          "order": 4
+        },
+        "companionMenuOptionsOther": {
+          "id": "companionMenuOptionsOther",
+          "name": "companionMenuOptionsOther",
+          "label": "Especifica la opción del menú que prefiere tu acompañante, por favor.",
+          "type": "text",
+          "depends": ["companionChoise", "companionMenuOptions"],
+          "order": 5
         },
         "allergyCompanion": {
           "id": "allergyCompanion",
@@ -505,7 +521,7 @@
             }
           ],
           "depends": ["companionChoise"],
-          "order": 4
+          "order": 6
         },
         "allergyDescriptionCompanion": {
           "id": "allergyDescriptionCompanion",
@@ -513,7 +529,7 @@
           "label": "Especifica la alergia de tu acompañante, por favor.",
           "type": "text",
           "depends": ["companionChoise", "allergyCompanion"],
-          "order": 5
+          "order": 7
         },
         "buttonPrev": {
           "id": "buttonPrev",
@@ -522,7 +538,7 @@
           "type": "button",
           "nextStep": "drink",
           "outlined": true,
-          "order": 6
+          "order": 8
         },
         "buttonNext": {
           "id": "buttonNext",
@@ -530,7 +546,7 @@
           "label": "Continuar",
           "type": "submit",
           "nextStep": "clothes",
-          "order": 7
+          "order": 9
         }
       }
     },
