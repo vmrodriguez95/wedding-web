@@ -1,8 +1,8 @@
 {
   "form": {
     "base": {
-      "sectionTitle": "¡¡Nos casamos!!",
-      "description": "Por favor, dinos tu nombre completo y tu correo. Después, necesitamos que respondas algunas preguntas para ayudarnos a preparar el evento del año. ¡Muchas gracias!",
+      "sectionTitle": "¡Nos casamos!",
+      "description": "<p><strong>Por favor, dinos tu nombre completo y tu correo para poder indentificarte.</strong></p><p>A continuación, necesitamos que respondas algunas preguntas para ayudarnos a preparar el evento del año.</p><p><strong>¡Muchas gracias!</strong></p>",
       "fields": {
         "fullname": {
           "id": "fullname",
@@ -21,7 +21,7 @@
         "buttonNext": {
           "id": "buttonNext",
           "name": "buttonNext",
-          "label": "Continuar",
+          "label": "Empezar",
           "type": "submit",
           "nextStep": "home",
           "order": 2
@@ -34,7 +34,7 @@
         "relationship": {
           "id": "relationship",
           "name": "relationship",
-          "label": "¿Eres familia o amigo?",
+          "label": "¿Eres familia o amigo/a?",
           "type": "radio",
           "options": [
             {
@@ -43,7 +43,7 @@
               "default": true
             },
             {
-              "label": "Amigo",
+              "label": "Amigo/a",
               "value": "friend"
             }
           ],
@@ -102,7 +102,8 @@
       }
     },
     "missyou": {
-      "sectionTitle": "Es una lástima, ¡Te echaremos de menos!"
+      "sectionTitle": "¡Te echaremos de menos!",
+      "description": "<p>Es una lástima que no puedas venir, nos tomaremos una a tu salud.</p>"
     },
     "companion": {
       "sectionTitle": "Acompañante",

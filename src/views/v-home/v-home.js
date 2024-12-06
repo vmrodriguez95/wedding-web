@@ -1,10 +1,19 @@
+// Lit imports
 import { LitElement, html, css, unsafeCSS } from 'lit'
-import { customElement, state, query } from 'lit/decorators.js'
 import { when } from 'lit/directives/when.js'
 import { repeat } from 'lit/directives/repeat.js'
+import { classMap } from 'lit/directives/class-map.js'
+import { unsafeHTML } from 'lit/directives/unsafe-html.js'
+import { customElement, state, query } from 'lit/decorators.js'
+
+// Util imports
 import { generateToken, sanitize } from '../../utils/actions.utils.js'
+
+// Controller imports
 import { DBController } from '../../controllers/db.controller.js'
 import { StorageController } from '../../controllers/storage.controller.js'
+
+// Style imports
 import style from './v-home.style.scss?inline'
 
 const elementName = 'v-home'
@@ -14,13 +23,13 @@ class VHome extends LitElement {
 
   @state() form
 
+  @state() token = ''
+
   @query('form') _formEl
 
   actualStep = 'base'
 
   dependencies = []
-
-  _token = ''
 
   _companionChoise = null
 
@@ -44,8 +53,8 @@ class VHome extends LitElement {
 
     this._dbController.startDBConnection()
 
-    if (this._token) {
-      await this._dbController.getActualStep(this._token)
+    if (this.token) {
+      await this._dbController.getActualStep(this.token)
     }
 
     await this._dbController.getFormByKey(this.actualStep)
@@ -55,18 +64,32 @@ class VHome extends LitElement {
    * Lifecycle methods
    */
   render() {
+    const titleClasses = {
+      [`${elementName}__title`]: true,
+      [`${elementName}__title--l`]: this.token
+    }
+    const wrapperClasses = {
+      [`${elementName}__wrapper`]: !this.token
+    }
+    const formClasses = {
+      [`${elementName}__form`]: this.token
+    }
+
     /* eslint-disable indent */
     return html`
       <main class=${elementName}>
-        <section class="${elementName}__wrapper">
-          ${when(this.form?.sectionTitle, () => html`
-            <h2 class="${elementName}__title">${this.form.sectionTitle}</h2>
-          `)}
-          ${when(this.form?.description, () => html`
-            <p class="${elementName}__description">${this.form.description}</p>
-          `)}
+        ${when(!this.token, () => html`
+          <img class="${elementName}__topimage" src="/static/images/flowers.png" width="846" height="800" />
+        `)}
+        ${when(this.form?.sectionTitle, () => html`
+          <h2 class="${classMap(titleClasses)}">${this.form.sectionTitle}</h2>
+        `)}
+        ${when(this.form?.description, () => html`
+          <div class="${elementName}__description">${unsafeHTML(this.form.description)}</div>
+        `)}
+        <section class="${classMap(wrapperClasses)}">
           ${when(this.form?.fields, () => html`
-            <form class="${elementName}__form" @submit=${this.onSubmit}>
+            <form class="${classMap(formClasses)}" @submit=${this.onSubmit}>
               ${repeat(
                 this.getFields(),
                 ([,field]) => field.id,
@@ -79,9 +102,12 @@ class VHome extends LitElement {
                   ([key, field]) => this.getFieldTemplate(key, field)
                 )}
               </div>
-            </form> 
+            </form>
           `)}
         </section>
+        ${when(this.token, () => html`
+          <img class="${elementName}__bottomimage" src="/static/images/flowers.png" width="846" height="800" />
+        `)}
       </main>
     `
   }
@@ -96,7 +122,7 @@ class VHome extends LitElement {
    * Methods
    */
   setToken(token) {
-    this._token = token
+    this.token = token
   }
 
   setActualStep(step) {
@@ -175,7 +201,7 @@ class VHome extends LitElement {
           nextStep = fieldEl.nextStep
           return ''
         } else {
-          return await this._dbController.getValueFromKey(key, this._token)
+          return await this._dbController.getValueFromKey(key, this.token)
         }
       })
     )
@@ -240,6 +266,7 @@ class VHome extends LitElement {
           template = html`
             <e-input
               id=${field.id}
+              class="${elementName}__field"
               label=${field.label}
               type=${field.type}
               required
@@ -251,6 +278,7 @@ class VHome extends LitElement {
           template = html`
             <c-radiogroup
               id=${field.id}
+              class="${elementName}__field"
               name=${field.name}
               label=${field.label}
               type=${field.type}
@@ -263,6 +291,7 @@ class VHome extends LitElement {
           template = html`
             <e-select
               id=${field.id}
+              class="${elementName}__field"
               label=${field.label}
               required
               .options=${field.options}
@@ -318,7 +347,7 @@ class VHome extends LitElement {
     const formData = this.getFormData()
     const nextButtonEl = e.target.querySelector('#buttonNext')
 
-    if (!this._token) {
+    if (!this.token) {
       this.setToken(this.createToken(formData.email, formData.fullname))
       this.setMainUserInfoInStorage(formData.email, formData.fullname)
     }
@@ -327,10 +356,10 @@ class VHome extends LitElement {
       this._storageController.setValue('companionChoise', formData.companionChoise)
     }
 
-    formData.actualStep = await this.getNextStep(nextButtonEl, this._token)
+    formData.actualStep = await this.getNextStep(nextButtonEl, this.token)
 
     this.dependencies = []
-    await this._dbController.saveUserData(formData, this._token)
+    await this._dbController.saveUserData(formData, this.token)
     await this._dbController.getFormByKey(formData.actualStep)
   }
 }

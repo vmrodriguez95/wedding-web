@@ -19,7 +19,6 @@ export const styleBundles = [
   'normalize.css',
   './src/styles/generic/generic.fonts.scss',
   './src/styles/variables/variables.colors.scss',
-  './src/styles/variables/variables.borders.scss',
   './src/styles/variables/variables.fonts.scss',
   './src/styles/variables/variables.transitions.scss',
   './src/styles/variables/variables.grid.scss',

@@ -1,5 +1,0 @@
-@mixin transition($properties...) {
-  transition-property: $properties;
-  transition-duration: var(--animation-ms);
-  transition-timing-function: var(--animation-type);
-}

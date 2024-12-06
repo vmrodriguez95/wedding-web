@@ -2,31 +2,29 @@
 @use '../../styles/tools/tools.typography.scss' as *;
 
 :host {
-  --bg-color: var(--color-green);
-  --border-color: var(--color-green);
+  --bg-color: var(--color-primary);
+  --font-color: var(--color-white);
+  --border-color: var(--color-primary);
 }
 
 :host([outlined]) {
   --bg-color: var(--color-white);
+  --font-color: var(--color-gray);
+  --border-color: var(--color-gray--medium);
 }
 
 .e-button {
-  @include text--medium;
-  color: var(--color-gray--dark);
+  @include text--large;
+  color: rgba(var(--font-color), 1);
   display: inline-block;
-  padding: space(1) space(2);
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius);
+  padding: space(2) space(3);
+  border: 2px solid rgba(var(--border-color), 1);
+  border-radius: 8px;
   cursor: pointer;
-  background-color: var(--bg-color);
+  background-color: rgba(var(--bg-color), 1);
   box-sizing: border-box;
   outline: 2px solid transparent;
   transition: transform 0.2s, outline-color 0.2s;
-
-  &:focus {
-    outline-color: var(--color-purple--medium);
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  }
 
   &:active {
     outline: none;
