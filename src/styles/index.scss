@@ -3,7 +3,6 @@
 @use './variables/variables.grid.scss';
 @use './variables/variables.fonts.scss';
 @use './variables/variables.colors.scss';
-@use './variables/variables.borders.scss';
 @use './variables/variable.transition.scss';
 
 @use './generic/generic.base.scss';
@@ -11,5 +10,4 @@
 
 @use './tools/tools.grid.scss';
 @use './tools/tools.margins.scss';
-@use './tools/tools.transition.scss';
 @use './tools/tools.typography.scss';
