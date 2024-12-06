@@ -6,23 +6,22 @@
   box-sizing: border-box;
 
   &__label {
-    @include text;
+    @include text(700);
     display: block;
     text-align: left;
-    padding-left: space(1);
-    color: var(--color-gray--dark);
-    margin-bottom: space(1);
+    color: rgba(var(--color-gray), 1);
+    margin-bottom: space(2);
   }
 
   &__input {
-    @include text;
-    color: var(--color-gray--dark);
+    @include text--large;
+    font-family: inherit;
+    color: rgba(var(--color-gray), 1);
     width: 100%;
     box-sizing: border-box;
-    padding: space(1);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    outline: 2px solid transparent;
+    padding: space(2);
+    border-radius: 8px;
+    border: 1px solid rgba(var(--color-gray--light), 1);
     transition: outline-color 0.2s;
 
     &:-webkit-autofill,
@@ -31,13 +30,9 @@
     &:-webkit-autofill:active {
       @include text;
       -webkit-background-clip: text;
-      -webkit-text-fill-color: var(--color-gray--dark);
+      -webkit-text-fill-color: rgba(var(--color-gray), 1);
       transition: background-color 5000s ease-in-out 0s;
       box-shadow: inset 0 0 20px 20px #ffffff;
-    }
-
-    &:focus {
-      outline-color: var(--color-purple--medium);
     }
   }
 }
