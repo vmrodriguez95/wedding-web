@@ -1,15 +1,19 @@
+@use 'sass:map';
+
 $breakpoints: (
-  xxxs: 0,
-  xxs: 360,
-  xs: 667,
-  sm: 768,
-  md: 1024,
-  lg: 1280,
-  xl: 1600,
-  xxl: 1800,
-  xxxl: 2100
+  xxxs: 0px,
+  xxs: 360px,
+  xs: 667px,
+  sm: 768px,
+  md: 1024px,
+  lg: 1280px,
+  xl: 1600px,
+  xxl: 1800px,
+  xxxl: 2100px
 );
 
-@function breakpoint($varName) {
-  @return map-get($breakpoints, $varName) + px;
+@mixin breakpoint($breakpoint) {
+  @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
+    @content
+  }
 }

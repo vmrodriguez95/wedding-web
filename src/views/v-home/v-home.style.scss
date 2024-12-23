@@ -1,18 +1,41 @@
+@use '../../styles/tools/tools.grid.scss' as *;
 @use '../../styles/tools/tools.margins.scss' as *;
 @use '../../styles/tools/tools.typography.scss' as *;
 
 .v-home {
+  $root: &;
   padding: space(6) space(5);
   width: 100%;
   height: 100%;
   text-align: center;
   box-sizing: border-box;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  &--beginning {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  &__background {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
 
-  &__topimage {
-    max-width: 100%;
-    height: auto;
-    margin-top: -50%;
-    margin-bottom: space(6);
+    img {
+      height: 100%;
+      min-height: 750px;
+
+      @include breakpoint(md) {
+        height: auto;
+        width: 100%;
+      }
+    }
   }
 
   &__title {
@@ -22,6 +45,8 @@
     margin-bottom: space(5);
     padding-bottom: space(5);
     border-bottom: 1px solid rgba(var(--color-primary), 1);
+    position: relative;
+    z-index: 1;
 
     &--l {
       @include heading--l;
@@ -30,6 +55,8 @@
 
   &__description {
     margin-bottom: space(6);
+    position: relative;
+    z-index: 1;
 
     p {
       @include text;
@@ -40,20 +67,30 @@
   }
 
   &__wrapper {
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: space(5) space(3);
-    box-shadow: 0px 4px 27px 0px rgba(var(--color-black), 0.2);
-  }
-
-  &__form {
     position: relative;
     z-index: 1;
+    box-sizing: border-box;
+    padding-bottom: 20px;
+    
+    &--beginning {
+      border-radius: 10px;
+      padding: space(5) space(3);
+      background-color: rgba(var(--color-white), 1);
+      box-shadow: 0px 4px 27px 0px rgba(var(--color-black), 0.2);
+    }
   }
 
   &__field {
     display: block;
     margin-bottom: space(8);
+
+    #{$root}--questions & {
+      box-sizing: border-box;
+      border-radius: 10px;
+      padding: 20px 12px;
+      border: 1px solid rgba(var(--color-gray--light-extra), 1);
+      background-color: rgba(var(--color-white), 1);
+    }
   }
 
   &__actions {
@@ -66,17 +103,6 @@
     e-button:only-of-type {
       margin-left: auto;
     }
-  }
-
-  &__bottomimage {
-    max-width: 100%;
-    height: auto;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transform: translateY(60%);
-    z-index: 0;
   }
 
   .hide {
