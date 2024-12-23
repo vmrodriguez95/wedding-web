@@ -7,6 +7,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import { customElement, state, query } from 'lit/decorators.js'
 
 // Util imports
+import { MAIN_STEP } from '../../utils/consts.utils.js'
 import { generateToken, sanitize } from '../../utils/actions.utils.js'
 
 // Controller imports
@@ -21,13 +22,13 @@ const elementName = 'v-home'
 @customElement(elementName)
 class VHome extends LitElement {
 
-  @state() form
+  @state() form = undefined
 
   @state() token = ''
 
   @query('form') _formEl
 
-  actualStep = 'base'
+  actualStep = MAIN_STEP
 
   dependencies = []
 
@@ -64,32 +65,44 @@ class VHome extends LitElement {
    * Lifecycle methods
    */
   render() {
+    const classes = classMap({
+      [elementName]: true,
+      [`${elementName}--beginning`]: this.isMainStep(),
+      [`${elementName}--questions`]: !this.isMainStep()
+    })
+    const pictureClasses = classMap({
+      [`${elementName}__background`]: true,
+      [`${elementName}__background--questions`]: !this.isMainStep()
+    })
     const titleClasses = {
       [`${elementName}__title`]: true,
-      [`${elementName}__title--l`]: this.token
+      [`${elementName}__title--l`]: !this.isMainStep()
     }
     const wrapperClasses = {
-      [`${elementName}__wrapper`]: !this.token
-    }
-    const formClasses = {
-      [`${elementName}__form`]: this.token
+      [`${elementName}__wrapper`]: true,
+      [`${elementName}__wrapper--beginning`]: this.isMainStep()
     }
 
     /* eslint-disable indent */
     return html`
-      <main class=${elementName}>
-        ${when(!this.token, () => html`
-          <img class="${elementName}__topimage" src="/static/images/flowers.png" width="846" height="800" />
+      <main class=${classes}>
+      ${when(this.form, () => html`
+        <picture class="${pictureClasses}">
+        ${when(this.isMainStep(), () => html`
+          <source media="(min-width: 1024px)" srcset="/static/images/img-frontal-desktop.jpg" />
+          <img src="/static/images/img-frontal-mobile.jpg" alt="background" />
+       `, () => html`
+          <source media="(min-width: 1024px)" srcset="/static/images/img-preguntas-desktop.jpg" />
+          <img src="/static/images/img-preguntas-mobile.jpg" alt="background" />
         `)}
-        ${when(this.form?.sectionTitle, () => html`
-          <h2 class="${classMap(titleClasses)}">${this.form.sectionTitle}</h2>
-        `)}
-        ${when(this.form?.description, () => html`
+        </picture>
+        <h2 class="${classMap(titleClasses)}">${this.form.sectionTitle}</h2>
+        ${when(this.form.description, () => html`
           <div class="${elementName}__description">${unsafeHTML(this.form.description)}</div>
         `)}
-        <section class="${classMap(wrapperClasses)}">
-          ${when(this.form?.fields, () => html`
-            <form class="${classMap(formClasses)}" @submit=${this.onSubmit}>
+        ${when(this.form.fields, () => html`
+          <section class="${classMap(wrapperClasses)}">
+            <form @submit=${this.onSubmit}>
               ${repeat(
                 this.getFields(),
                 ([,field]) => field.id,
@@ -103,11 +116,9 @@ class VHome extends LitElement {
                 )}
               </div>
             </form>
-          `)}
-        </section>
-        ${when(this.token, () => html`
-          <img class="${elementName}__bottomimage" src="/static/images/flowers.png" width="846" height="800" />
+          </section>
         `)}
+      `)}
       </main>
     `
   }
@@ -139,6 +150,10 @@ class VHome extends LitElement {
 
   getButtons() {
     return Object.entries(this.form.fields).filter(([,field]) => field.type === 'button' || field.type === 'submit')
+  }
+
+  isMainStep() {
+    return this.actualStep === MAIN_STEP
   }
 
   setMainUserInfoInStorage(email, fullname) {
