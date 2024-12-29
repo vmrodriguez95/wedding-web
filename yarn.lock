@@ -1574,6 +1574,11 @@ chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+child_process@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/child_process/-/child_process-1.0.2.tgz#b1f7e7fc73d25e7fd1d455adc94e143830182b5a"
+  integrity sha512-Wmza/JzL0SiWz7kl6MhIKT5ceIlnFPJX+lwUGj7Clhy5MMldsSoJR0+uvRzOS5Kv45Mq7t1PoE8TsOA9bzvb6g==
+
 chokidar@^4.0.0, chokidar@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-4.0.1.tgz#4a6dff66798fb0f72a94f616abbd7e1a19f31d41"
@@ -3668,6 +3673,13 @@ run-parallel@^1.1.9:
   integrity sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   dependencies:
     queue-microtask "^1.2.2"
+
+run-python3@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/run-python3/-/run-python3-0.0.5.tgz#d890552aedacbf31c975f92415a8c69860a3e748"
+  integrity sha512-T4PMttPrFhi69d6SlPdbTQbAHTXFcInakyiMzDDswZ6Qe1pjq+vymgrfnf92XtZbuE3LsKf2GGVuviA3tqourw==
+  dependencies:
+    child_process "^1.0.2"
 
 safe-buffer@5.2.1, safe-buffer@>=5.1.0:
   version "5.2.1"

@@ -21,3 +21,5 @@ pnpm-debug.log*
 dist/app*.css
 dist/app*.js
 *.map
+src/data/private-key.json
+*.xlsx
