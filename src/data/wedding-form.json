@@ -2,11 +2,12 @@
   "form": {
     "base": {
       "sectionTitle": "¡Nos casamos!",
-      "description": "<p><strong>Por favor, dinos tu nombre completo y tu correo para poder indentificarte.</strong></p><p>A continuación, necesitamos que respondas algunas preguntas para ayudarnos a preparar el evento del año.</p><p><strong>¡Muchas gracias!</strong></p>",
+      "description": "<p><strong>Por favor, dinos tu nombre completo y tu correo para poder indentificarte.</strong></p><p>A continuación, necesitamos que respondas algunas preguntas para ayudarnos a preparar la boda.</p><p><strong>¡Muchas gracias!</strong></p>",
       "fields": {
         "fullname": {
           "id": "fullname",
           "name": "fullname",
+          "columnName": "Invitado",
           "label": "Tu nombre completo",
           "type": "text",
           "order": 0
@@ -65,6 +66,7 @@
         "attendAnswer": {
           "id": "attendAnswer",
           "name": "attendAnswer",
+          "columnName": "Asistencia",
           "label": "¿Podrás compartir con nosotros este día?",
           "type": "radio",
           "options": [
@@ -111,6 +113,7 @@
         "companionChoise": {
           "id": "companionChoise",
           "name": "companionChoise",
+          "columnName": "¿Trae acompañante?",
           "label": "¿Vendrás con acompañante?",
           "type": "radio",
           "options": [
@@ -129,6 +132,7 @@
         "companionName": {
           "id": "companionName",
           "name": "companionName",
+          "columnName": "Nombre del acompañante",
           "label": "¿Nos puedes decir el nombre de tu acompañante?",
           "type": "text",
           "depends": ["companionChoise"],
@@ -163,24 +167,25 @@
         "willComeToCountryHouse": {
           "id": "willComeToCountryHouse",
           "name": "willComeToCountryHouse",
+          "columnName": "¿Viene a la casa rural?",
           "label": "¿Vendrás a la casa rural?",
           "type": "radio",
           "options": [
             {
               "label": "¡Yo voy!",
-              "value": "alone",
+              "value": 1,
               "nextStep": "mattress",
               "default": true
             },
             {
               "label": "Nos apuntamos los dos",
-              "value": "both",
+              "value": 2,
               "nextStep": "mattress",
               "depends": ["companionChoise"]
             },
             {
               "label": "Nos vemos el sábado",
-              "value": "none",
+              "value": 0,
               "nextStep": "drink"
             }
           ],
@@ -229,6 +234,7 @@
         "mattressQuantity": {
           "id": "mattressQuantity",
           "name": "mattressQuantity",
+          "columnName": "Cantidad de colchones que puede traer",
           "label": "¿Cuantos colchones hinchables podrías traer?",
           "type": "select",
           "options": [
@@ -286,6 +292,7 @@
         "transportChoise": {
           "id": "transportChoise",
           "name": "transportChoise",
+          "columnName": "¿Acceso a la finca con transporte?",
           "label": "A la finca, ¿vas con el transporte que os facilitamos o con tu propio coche?",
           "type": "radio",
           "options": [
@@ -327,21 +334,22 @@
         "favoriteDrinkType": {
           "id": "favoriteDrinkType",
           "name": "favoriteDrinkType",
+          "columnName": "Bebida favorita del invitado",
           "label": "Elige tu tipo de bebida preferida:",
           "type": "radio",
           "options": [
             {
               "label": "Refresco",
-              "value": "soda",
+              "value": "Refresco",
               "default": true
             },
             {
               "label": "Cerveza",
-              "value": "beer"
+              "value": "Cerveza"
             },
             {
               "label": "Vino",
-              "value": "wine"
+              "value": "Vino"
             }
           ],
           "order": 0
@@ -349,6 +357,7 @@
         "favoriteDrinkMark": {
           "id": "favoriteDrinkMark",
           "name": "favoriteDrinkMark",
+          "columnName": "Marca bebida favorita del invitado",
           "label": "Especifica la marca de tu bebida favorita, por favor.",
           "type": "text",
           "order": 1
@@ -356,21 +365,22 @@
         "companionFavoriteDrinkType": {
           "id": "companionFavoriteDrinkType",
           "name": "companionFavoriteDrinkType",
+          "columnName": "Bebida favorita del acompañante",
           "label": "Ahora elige el tipo de bebida preferida de tu acompañante:",
           "type": "radio",
           "options": [
             {
               "label": "Refresco",
-              "value": "soda",
+              "value": "Refresco",
               "default": true
             },
             {
               "label": "Cerveza",
-              "value": "beer"
+              "value": "Cerveza"
             },
             {
               "label": "Vino",
-              "value": "wine"
+              "value": "Vino"
             }
           ],
           "depends": ["companionChoise"],
@@ -379,6 +389,7 @@
         "companionFavoriteDrinkMark": {
           "id": "companionFavoriteDrinkMark",
           "name": "companionFavoriteDrinkMark",
+          "columnName": "Marca bebida favorita del acompañante",
           "label": "¿Y la marca preferida de tu acompañante?",
           "type": "text",
           "depends": ["companionChoise"],
@@ -391,9 +402,9 @@
           "type": "button",
           "nextStepFromValue": ["relationship", "willComeToCountryHouse"],
           "options": {
-            "friend-alone": "transport",
-            "friend-both": "transport",
-            "friend-none": "countryHouse",
+            "friend-1": "transport",
+            "friend-2": "transport",
+            "friend-0": "countryHouse",
             "family": "companion"
           },
           "outlined": true,
@@ -415,6 +426,7 @@
         "menuOptions": {
           "id": "menuOptions",
           "name": "menuOptions",
+          "columnName": "Menú invitado",
           "label": "Elige la opción que más se adapte a tus gustos",
           "type": "select",
           "options": [
@@ -440,6 +452,7 @@
         "menuOptionsOther": {
           "id": "menuOptionsOther",
           "name": "menuOptionsOther",
+          "columnName": "Opción del menú invitado (escrita)",
           "label": "Especifica la opción del menú que prefieres, por favor.",
           "type": "text",
           "depends": ["menuOptions"],
@@ -466,6 +479,7 @@
         "allergyDescription": {
           "id": "allergyDescription",
           "name": "allergyDescription",
+          "columnName": "Alergia del invitado",
           "label": "Especifica la alergia, por favor.",
           "type": "text",
           "depends": ["allergy"],
@@ -474,6 +488,7 @@
         "companionMenuOptions": {
           "id": "companionMenuOptions",
           "name": "companionMenuOptions",
+          "columnName": "Menú del acompañante",
           "label": "¿A tu acompañante que opción le interesa más?",
           "type": "select",
           "options": [
@@ -500,6 +515,7 @@
         "companionMenuOptionsOther": {
           "id": "companionMenuOptionsOther",
           "name": "companionMenuOptionsOther",
+          "columnName": "Opción del menú del acompañante (escrita)",
           "label": "Especifica la opción del menú que prefiere tu acompañante, por favor.",
           "type": "text",
           "depends": ["companionChoise", "companionMenuOptions"],
@@ -527,6 +543,7 @@
         "allergyDescriptionCompanion": {
           "id": "allergyDescriptionCompanion",
           "name": "allergyDescriptionCompanion",
+          "columnName": "Alergia del acompañante",
           "label": "Especifica la alergia de tu acompañante, por favor.",
           "type": "text",
           "depends": ["companionChoise", "allergyCompanion"],
@@ -557,6 +574,7 @@
         "size": {
           "id": "size",
           "name": "size",
+          "columnName": "Talla del invitado",
           "label": "¿Que talla usas de ropa?",
           "type": "select",
           "options": [
@@ -591,6 +609,7 @@
         "sizeCompanion": {
           "id": "sizeCompanion",
           "name": "sizeCompanion",
+          "columnName": "Talla del acompañante",
           "label": "Y tu acompañante, ¿Que talla usa?",
           "type": "select",
           "options": [

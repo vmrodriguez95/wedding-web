@@ -24,6 +24,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-svg-import": "^3.0.0",
     "rollup-plugin-ts": "^3.4.5",
+    "run-python3": "^0.0.5",
     "sass": "^1.69.7",
     "stylelint": "^16.1.0",
     "stylelint-order": "^6.0.4",
@@ -40,6 +41,7 @@
   },
   "scripts": {
     "start": "wds --config web-dev-server.config.mjs",
-    "build": "node esbuild.pro.bundle.mjs"
+    "build": "node esbuild.pro.bundle.mjs",
+    "generate-excel": "run-python3 src/data/data_to_excel.py"
   }
 }
