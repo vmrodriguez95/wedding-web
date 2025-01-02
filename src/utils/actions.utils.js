@@ -1,20 +1,21 @@
-export function generateToken(email, username) {
-  const baseString = `${email}${username}`
-
-  let hash = 0
-  for (let i = 0; i < baseString.length; i++) {
-    hash = (hash << 5) - hash + baseString.charCodeAt(i)
-    hash |= 0
+export async function generateToken(email) {
+  if (!email || typeof email !== 'string') {
+    throw new Error('Invalid email input')
   }
 
-  const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  let token = ''
+  // Convertir el email a un ArrayBuffer
+  const encoder = new TextEncoder()
+  const data = encoder.encode(email)
 
-  while (token.length < 12) {
-    const index = Math.abs(hash % alphanumeric.length)
-    token += alphanumeric[index]
-    hash = Math.floor(hash / alphanumeric.length)
-  }
+  // Generar un hash SHA-256
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+
+  // Convertir el hash a una cadena hexadecimal
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('')
+
+  // Extraer los primeros 12 caracteres
+  const token = hashHex.slice(0, 12)
 
   return token
 }
