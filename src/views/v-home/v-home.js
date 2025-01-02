@@ -347,9 +347,8 @@ class VHome extends LitElement {
     return template
   }
 
-  createToken(email, fullname) {
-    const clearedName = sanitize(fullname)
-    const newToken = generateToken(email, clearedName)
+  async createToken(email) {
+    const newToken = await generateToken(email)
 
     this._storageController.setValue('token', newToken)
 
@@ -363,7 +362,9 @@ class VHome extends LitElement {
     const nextButtonEl = e.target.querySelector('#buttonNext')
 
     if (!this.token) {
-      this.setToken(this.createToken(formData.email, formData.fullname))
+      const newToken = await this.createToken(formData.email)
+
+      this.setToken(newToken)
       this.setMainUserInfoInStorage(formData.email, formData.fullname)
     }
 

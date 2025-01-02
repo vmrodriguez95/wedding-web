@@ -55,7 +55,7 @@ class ESelect extends LitElement {
           @change=${this._onSelectChange}
         >
           ${this.options.map(option => html`
-            <option value=${option.value}>${option.label}</option>
+            <option .value=${option.value}>${option.label}</option>
           `)}
         </select>
         <e-icon class="e-select__icon" icon="arrow-down" size="sm"></e-icon>
@@ -90,12 +90,15 @@ class ESelect extends LitElement {
   }
 
   _onSelectChange() {
-    this.value = this.selectEl.value
+    const numberValue = parseInt(this.selectEl.value)
+
+    this.value = isNaN(numberValue) ? this.selectEl.value : numberValue
     this._internals.setValidity(
       this.selectEl.validity,
       this.selectEl.validationMessage,
       this.selectEl
     )
+
     this.dispatchEvent(new CustomEvent('change', { detail: { value: this.value } }))
   }
 }
