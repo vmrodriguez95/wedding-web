@@ -37,7 +37,8 @@
     "firebase": "^11.0.1",
     "lit": "^3.1.1",
     "normalize.css": "^8.0.1",
-    "urlpattern-polyfill": "^10.0.0"
+    "urlpattern-polyfill": "^10.0.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "scripts": {
     "start": "wds --config web-dev-server.config.mjs",

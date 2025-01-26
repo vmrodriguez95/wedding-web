@@ -27,7 +27,8 @@
           "nextStep": "home",
           "order": 2
         }
-      }
+      },
+      "order": 0
     },
     "home": {
       "sectionTitle": "Dinos por qué lado vienes.",
@@ -58,7 +59,8 @@
           "nextStep": "attend",
           "order": 1
         }
-      }
+      },
+      "order": 1
     },
     "attend": {
       "sectionTitle": "Esta es la pregunta más importante de todas.",
@@ -101,7 +103,8 @@
           "nextStepFromValue": ["attendAnswer"],
           "order": 2
         }
-      }
+      },
+      "order": 2
     },
     "missyou": {
       "sectionTitle": "¡Te echaremos de menos!",
@@ -159,7 +162,8 @@
           },
           "order": 3
         }
-      }
+      },
+      "order": 3
     },
     "countryHouse": {
       "sectionTitle": "Casa Rural",
@@ -208,7 +212,8 @@
           "nextStepFromValue": ["willComeToCountryHouse"],
           "order": 2
         }
-      }
+      },
+      "order": 4
     },
     "mattress": {
       "sectionTitle": "Colchones",
@@ -284,11 +289,12 @@
           "label": "Continuar",
           "order": 3
         }
-      }
+      },
+      "order": 5
     },
     "transport": {
       "sectionTitle": "Transporte",
-      "description": "<p>Habrá furgonetas que os llevarán de la casa rural a la finca y viceversa. La vuelta de la finca a la casa rural comenzará tras la cena, de manera ininterrumpida, el único requisito es que para que salgan de la finca debe ser mínimo un grupo de 6 personas, por lo que por favor haced un uso responsable de ellas.</p><p><strong>Por desgracia para aquellos que no se queden en la casa rural no disponemos de transporte a Madrid</strong></p>",
+      "description": "<p>Habrá furgonetas que os llevarán de la casa rural a la finca y viceversa. La vuelta de la finca a la casa rural comenzará tras la cena, de manera ininterrumpida, el único requisito es que, para que salgan de la finca, debe ser mínimo un grupo de 6 personas, por lo que por favor haced un uso responsable de ellas.</p><p><strong>Por desgracia para aquellos que no se queden en la casa rural no disponemos de transporte a Madrid</strong></p>",
       "fields": {
         "transportChoise": {
           "id": "transportChoise",
@@ -326,7 +332,8 @@
           "nextStep": "drink",
           "order": 2
         }
-      }
+      },
+      "order": 6
     },
     "drink": {
       "sectionTitle": "¿Qué vas a beber?",
@@ -419,7 +426,8 @@
           "nextStep": "menu",
           "order": 5
         }
-      }
+      },
+      "order": 7
     },
     "menu": {
       "sectionTitle": "¿Qué menú prefieres?",
@@ -567,16 +575,18 @@
           "nextStep": "clothes",
           "order": 9
         }
-      }
+      },
+      "order": 8
     },
     "clothes": {
       "sectionTitle": "Ropa",
+      "description": "¡Estamos preparando una sorpresa especial para ti! ¿Nos dices cuál es tu talla de ropa?",
       "fields": {
-        "size": {
-          "id": "size",
-          "name": "size",
-          "columnName": "Talla del invitado",
-          "label": "¿Que talla usas de ropa?",
+        "sizeTop": {
+          "id": "sizeTop",
+          "name": "sizeTop",
+          "columnName": "Talla superior del invitado",
+          "label": "Primero la parte superior.",
           "type": "select",
           "options": [
             {
@@ -607,11 +617,11 @@
           ],
           "order": 0
         },
-        "sizeCompanion": {
-          "id": "sizeCompanion",
-          "name": "sizeCompanion",
-          "columnName": "Talla del acompañante",
-          "label": "Y tu acompañante, ¿Que talla usa?",
+        "sizeBottom": {
+          "id": "sizeBottom",
+          "name": "sizeBottom",
+          "columnName": "Talla inferior del invitado",
+          "label": "Ahora la parte inferior.",
           "type": "select",
           "options": [
             {
@@ -640,7 +650,78 @@
               "value": "XXL"
             }
           ],
-          "order": 1,
+          "order": 1
+        },
+        "sizeTopCompanion": {
+          "id": "sizeTopCompanion",
+          "name": "sizeTopCompanion",
+          "columnName": "Talla superior del acompañante",
+          "label": "Y tu acompañante, ¿Que talla usa de la parte de arriba?",
+          "type": "select",
+          "options": [
+            {
+              "label": "XS",
+              "value": "XS"
+            },
+            {
+              "label": "S",
+              "value": "S"
+            },
+            {
+              "label": "M",
+              "value": "M",
+              "default": true
+            },
+            {
+              "label": "L",
+              "value": "L"
+            },
+            {
+              "label": "XL",
+              "value": "XL"
+            },
+            {
+              "label": "XXL",
+              "value": "XXL"
+            }
+          ],
+          "order": 2,
+          "depends": ["companionChoise"]
+        },
+        "sizeBottomCompanion": {
+          "id": "sizeBottomCompanion",
+          "name": "sizeBottomCompanion",
+          "columnName": "Talla inferior del acompañante",
+          "label": "¿Y para la parte inferior de tu acompañante?",
+          "type": "select",
+          "options": [
+            {
+              "label": "XS",
+              "value": "XS"
+            },
+            {
+              "label": "S",
+              "value": "S"
+            },
+            {
+              "label": "M",
+              "value": "M",
+              "default": true
+            },
+            {
+              "label": "L",
+              "value": "L"
+            },
+            {
+              "label": "XL",
+              "value": "XL"
+            },
+            {
+              "label": "XXL",
+              "value": "XXL"
+            }
+          ],
+          "order": 3,
           "depends": ["companionChoise"]
         },
         "buttonPrev": {
@@ -660,7 +741,8 @@
           "nextStep": "end",
           "order": 3
         }
-      }
+      },
+      "order": 9
     },
     "end": {
       "sectionTitle": "¡Genial! Nos vemos ese día.",

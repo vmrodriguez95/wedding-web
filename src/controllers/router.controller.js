@@ -9,6 +9,10 @@ export class RouterController {
       render: () => html`<v-home></v-home>`
     },
     {
+      path: '/data/',
+      render: () => html`<v-data></v-data>`
+    },
+    {
       path: '*',
       addToMenu: false,
       enter: () => {
