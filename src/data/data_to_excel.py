@@ -14,8 +14,7 @@ resume_columns = {
   'Invitados totales': ['attendAnswer', 'companionChoise'],
   'Casa rural': ['willComeToCountryHouse'],
   'Colchones': ['mattressQuantity'],
-  'Interesados en el transporte': ['transportChoise'],
-  'Tallas': ['size', 'sizeCompanion']
+  'Interesados en el transporte': ['transportChoise']
 }
 
 counter = {
