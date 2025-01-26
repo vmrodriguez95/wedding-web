@@ -68,6 +68,64 @@ export class DBController {
     }
   }
 
+  async getTableColumns() {
+    try {
+      const snapshot = await get(child(this._dbRef, `form`))
+
+      if (snapshot.exists()) {
+        const columns = []
+        const data = snapshot.val()
+
+        const basicStructure = Object.values(data).filter((formStep) => {
+          return formStep.order >= 0
+        }).sort((a, b) => {
+          return a.order - b.order
+        }).map((formStep) => {
+          return Object.values(formStep.fields).filter((fields) => {
+            return fields.columnName
+          }).sort((a, b) => {
+            return a.order - b.order
+          })
+        })
+
+        for (let item of basicStructure) {
+          for (let field of item) {
+            columns.push({
+              name: field.columnName,
+              key: field.id
+            })
+          }
+        }
+
+        this.host.columns = columns
+      } else {
+        this.host.columns = []
+      }
+    }
+
+    catch(error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
+  }
+
+  async getUserChoises() {
+    try {
+      const snapshot = await get(child(this._dbRef, `users`))
+
+      if (snapshot.exists()) {
+        this.host.userChoises = Object.values(snapshot.val())
+      } else {
+        this.host.userChoises = []
+      }
+
+    }
+    catch(error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
+  }
+
   async saveUserData(newData, token) {
     try {
       let data = newData
