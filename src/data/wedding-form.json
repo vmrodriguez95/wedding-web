@@ -27,7 +27,8 @@
           "nextStep": "home",
           "order": 2
         }
-      }
+      },
+      "order": 0
     },
     "home": {
       "sectionTitle": "Dinos por qué lado vienes.",
@@ -58,7 +59,8 @@
           "nextStep": "attend",
           "order": 1
         }
-      }
+      },
+      "order": 1
     },
     "attend": {
       "sectionTitle": "Esta es la pregunta más importante de todas.",
@@ -101,7 +103,8 @@
           "nextStepFromValue": ["attendAnswer"],
           "order": 2
         }
-      }
+      },
+      "order": 2
     },
     "missyou": {
       "sectionTitle": "¡Te echaremos de menos!",
@@ -159,7 +162,8 @@
           },
           "order": 3
         }
-      }
+      },
+      "order": 3
     },
     "countryHouse": {
       "sectionTitle": "Casa Rural",
@@ -208,7 +212,8 @@
           "nextStepFromValue": ["willComeToCountryHouse"],
           "order": 2
         }
-      }
+      },
+      "order": 4
     },
     "mattress": {
       "sectionTitle": "Colchones",
@@ -284,7 +289,8 @@
           "label": "Continuar",
           "order": 3
         }
-      }
+      },
+      "order": 5
     },
     "transport": {
       "sectionTitle": "Transporte",
@@ -326,7 +332,8 @@
           "nextStep": "drink",
           "order": 2
         }
-      }
+      },
+      "order": 6
     },
     "drink": {
       "sectionTitle": "¿Qué vas a beber?",
@@ -419,7 +426,8 @@
           "nextStep": "menu",
           "order": 5
         }
-      }
+      },
+      "order": 7
     },
     "menu": {
       "sectionTitle": "¿Qué menú prefieres?",
@@ -567,7 +575,8 @@
           "nextStep": "clothes",
           "order": 9
         }
-      }
+      },
+      "order": 8
     },
     "clothes": {
       "sectionTitle": "Ropa",
@@ -732,7 +741,8 @@
           "nextStep": "end",
           "order": 3
         }
-      }
+      },
+      "order": 9
     },
     "end": {
       "sectionTitle": "¡Genial! Nos vemos ese día.",

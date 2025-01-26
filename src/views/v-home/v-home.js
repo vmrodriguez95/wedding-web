@@ -8,7 +8,7 @@ import { customElement, state, query } from 'lit/decorators.js'
 
 // Util imports
 import { MAIN_STEP } from '../../utils/consts.utils.js'
-import { generateToken, sanitize } from '../../utils/actions.utils.js'
+import { generateToken } from '../../utils/actions.utils.js'
 
 // Controller imports
 import { DBController } from '../../controllers/db.controller.js'
@@ -86,39 +86,39 @@ class VHome extends LitElement {
     /* eslint-disable indent */
     return html`
       <main class=${classes}>
-      ${when(this.form, () => html`
-        <picture class="${pictureClasses}">
-        ${when(this.isMainStep(), () => html`
-          <source media="(min-width: 1024px)" srcset="/static/images/img-frontal-desktop.jpg" />
-          <img src="/static/images/img-frontal-mobile.jpg" alt="background" />
-       `, () => html`
-          <source media="(min-width: 1024px)" srcset="/static/images/img-preguntas-desktop.jpg" />
-          <img src="/static/images/img-preguntas-mobile.jpg" alt="background" />
-        `)}
-        </picture>
-        <h2 class="${classMap(titleClasses)}">${this.form.sectionTitle}</h2>
-        ${when(this.form.description, () => html`
-          <div class="${elementName}__description">${unsafeHTML(this.form.description)}</div>
-        `)}
-        ${when(this.form.fields, () => html`
-          <section class="${classMap(wrapperClasses)}">
-            <form @submit=${this.onSubmit}>
-              ${repeat(
-                this.getFields(),
-                ([,field]) => field.id,
-                ([key, field]) => this.getFieldTemplate(key, field)
-              )}
-              <div class="${elementName}__actions">
+        ${when(this.form, () => html`
+          <picture class="${pictureClasses}">
+          ${when(this.isMainStep(), () => html`
+            <source media="(min-width: 1024px)" srcset="/static/images/img-frontal-desktop.jpg" />
+            <img src="/static/images/img-frontal-mobile.jpg" alt="background" />
+        `, () => html`
+            <source media="(min-width: 1024px)" srcset="/static/images/img-preguntas-desktop.jpg" />
+            <img src="/static/images/img-preguntas-mobile.jpg" alt="background" />
+          `)}
+          </picture>
+          <h2 class="${classMap(titleClasses)}">${this.form.sectionTitle}</h2>
+          ${when(this.form.description, () => html`
+            <div class="${elementName}__description">${unsafeHTML(this.form.description)}</div>
+          `)}
+          ${when(this.form.fields, () => html`
+            <section class="${classMap(wrapperClasses)}">
+              <form @submit=${this.onSubmit}>
                 ${repeat(
-                  this.getButtons(),
+                  this.getFields(),
                   ([,field]) => field.id,
                   ([key, field]) => this.getFieldTemplate(key, field)
                 )}
-              </div>
-            </form>
-          </section>
+                <div class="${elementName}__actions">
+                  ${repeat(
+                    this.getButtons(),
+                    ([,field]) => field.id,
+                    ([key, field]) => this.getFieldTemplate(key, field)
+                  )}
+                </div>
+              </form>
+            </section>
+          `)}
         `)}
-      `)}
       </main>
     `
   }
