@@ -9,7 +9,7 @@ export class RouterController {
       render: () => html`<v-home></v-home>`
     },
     {
-      path: '/data',
+      path: '/data/',
       render: () => html`<v-data></v-data>`
     },
     {
